@@ -7,19 +7,18 @@
 	<div class="container">
 		{% block content %}
 		<h2>Register</h2>
-		<div class="alert alert-danger" role="alert"></div>
 		<div class="col-xs-offset-3">
 			<form action="" method="post" autocomplete="off">
 				<div class="row">
 					<div class="form-group col-xs-4">
 						<label for="name">Name:</label> <input name="name" 
 						 data-validation="length alphanumeric" data-validation-length="min1"
-						 data-validation-error-msg="-Name is required" data-validation-allowing="' "
+						 data-validation-error-msg="Name is required" data-validation-allowing="' "
 							type="text" placeholder="Name" class="form-control" />
 					</div>
 					<div class="form-group col-xs-4">
 						<label for="email">Email:</label> <input name="email" 
-						data-validation="email" data-validation-error-msg="-Invalid email address"
+						data-validation="email" data-validation-error-msg="Invalid email address"
 							type="email" placeholder="Email" class="form-control" />
 					</div>
 				</div>
@@ -27,17 +26,22 @@
 					<div class="form-group col-xs-8">
 						<label for="username">Username:</label> <input name="username"
 						data-validation="length alphanumeric" data-validation-length="5-50"
-						 data-validation-error-msg="-Username must be between 5-50 characters" data-validation-allowing="' "
+						 data-validation-error-msg="Username must be between 5-50 characters" data-validation-allowing="' "
 							type="text" placeholder="Username" class="form-control" />
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-xs-4">
-						<label for="mypassword">Password:</label> <input name="mypassword"
+						<label for="pass_confirmation">Password:</label> <input name="pass_confirmation"
+							data-validation="length strength" data-validation-length="min8"
+							 data-validation-error-msg="Password needs to be at least 8 characters"
+							 data-validation-strength="2"
 							type="password" placeholder="Password" class="form-control" />
 					</div>
 					<div class="form-group col-xs-4">
-						<label for="cpassword">Confirm Password:</label> <input name="cpassword"
+						<label for="pass">Confirm Password:</label> <input name="pass"
+						data-validation="confirmation length" data-validation-length="min8"
+						data-validation-error-msg="Passwords don't match"
 							type="password" placeholder="Confirm Password" class="form-control"/>
 					</div>
 				</div>
@@ -54,10 +58,23 @@
  		{{ super() }} 
  		<script type="text/javascript">
 			$.validate({
-				  validateOnBlur : false, // disable validation when input looses focus
-				  errorMessagePosition : $('div.alert-danger'),
-				  scrollToTopOnError : false // Set this property to true if you have a long form
-				});
+				  scrollToTopOnError : false, // Set this property to true if you have a long form
+				  modules : 'security',
+				  onModulesLoaded : function() {
+					    var optionalConfig = {
+					      fontSize: '8pt',
+					      padding: '0px',
+					      bad : 'Very Weak',
+					      weak : 'Weak',
+					      good : 'Good',
+					      strong : 'Strong'
+					    };
+
+			    	$('input[name="pass_confirmation"]').displayPasswordStrength(optionalConfig);
+				  }
+			});
+			
+			  
 		</script>
  	{% endblock %}
 </body>
