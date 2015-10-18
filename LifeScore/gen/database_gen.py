@@ -9,15 +9,10 @@ tables_script = """
  
     CREATE TABLE "user" (
     `userID`    INTEGER UNIQUE,
-    `first_name`    TEXT NOT NULL,
-    `last_name`    TEXT NOT NULL,
-    `role`    TEXT DEFAULT "engineer",
+    `name`    TEXT NOT NULL,
+    `username`    TEXT NOT NULL,
     `email`    TEXT NOT NULL,
-    `dateofbirth`    TEXT,
-    `gender`    INTEGER,
-    `datestarted`    TEXT,
-    `bio`    TEXT,
-    `pictureURL`    TEXT,
+    `password`    TEXT NOT NULL,
     PRIMARY KEY(userID)
     );
 

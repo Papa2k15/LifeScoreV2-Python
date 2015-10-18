@@ -1,16 +1,18 @@
 import sqlite3 as lite
+from beans.user_bean import user_bean
+from loaders.user_loader import user_loader
 
 
 # this will need to be changed to use google auth
-def add_new_user(_database, _name, _email, _bio, _pictureURL):
+def add_new_user(_database, user_bean):
     con = None
     try:
         # connect to sqlite3
         con = lite.connect(_database)
         with con:
             cur = con.cursor()
-            cur.execute("INSERT INTO user (first_name, last_name, email, bio, pictureURL) VALUES(?, ?, ?, ?, ?)",
-                        (_name.split(' ', 2)[0], _name.split(' ', 2)[1], _email, _bio, _pictureURL))
+            cur.execute("INSERT INTO user (name, username, email, password) VALUES(?, ?, ?, ?)",
+                        (user_bean.name,user_bean.username,user_bean.email,user_bean.password))
             con.commit()
         return True
     except lite.Error, e:
@@ -31,7 +33,7 @@ def getUser(_database, _userID):
             cur = con.cursor()
             cur.execute("SELECT * FROM user WHERE userID = ?", (_userID,))
             con.commit()
-            return cur.fetchall()
+            return user_loader.load_single(cur)
     except lite.Error, e:
         return str(e)
 
