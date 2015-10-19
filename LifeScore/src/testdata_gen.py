@@ -8,9 +8,9 @@ clear_tables_script =  """
 
 test_data_script = """ 
     /* Test data for users*/
-        INSERT INTO `user` (userID,name,username,email,password) VALUES (1,'Gregory Daniels','Papa2k15','gldaniel@ncsu.edu','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8');        
+        INSERT INTO `user` (userID,first_name,last_name,username,email,password) VALUES (1,'Gregory','Daniels','Papa2k15','gldaniel@ncsu.edu','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8');        
     """
-
+    
 try:
     cursor = life_score_con.cursor()
     cursor.executescript(clear_tables_script)

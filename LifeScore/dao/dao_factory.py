@@ -1,5 +1,4 @@
 from dao.user_dao import user_dao
-import sqlite3 as lite
 
 class dao_factory(object):
     instance = None

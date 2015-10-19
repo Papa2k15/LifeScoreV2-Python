@@ -13,10 +13,10 @@ class user_dao:
             con = self.database_connector
             with con:
                 cur = con.cursor()
-                cur.execute("INSERT INTO user (name, username, email, password) VALUES(?, ?, ?, ?)",
-                            (user_bean.name,user_bean.username,user_bean.email,user_bean.password))
+                cur.execute("INSERT INTO user (first_name, last_name, username, email, password) VALUES(?, ?, ?, ?, ?)",
+                            (user_bean.first_name, user_bean.last_name,user_bean.username,user_bean.email,user_bean.password))
                 con.commit()
-                return True
+                return True, "Successfully registered new user."
         except lite.Error, e:
             return False, str(e)
         finally:
@@ -48,7 +48,7 @@ class user_dao:
                 cur = con.cursor()
                 cur.execute("DELETE FROM user WHERE userID = ?", (_userID,))     
                 con.commit()     
-                return True
+                return True, "Successfully removed user."
         except lite.Error, e:
             return False,str(e)
         finally:
@@ -63,10 +63,10 @@ class user_dao:
                 con.rollback()
                 cur = con.cursor()
                 cur.execute(
-                    "UPDATE user SET name = ?, username = ?, email = ?, password = ? WHERE userID = ?",
-                    (user_bean.name,user_bean.username,user_bean.email,user_bean.password,user_bean.user_id))
+                    "UPDATE user SET first_name = ?, last_name = ?, username = ?, email = ?, password = ? WHERE userID = ?",
+                    (user_bean.first_name, user_bean.last_name ,user_bean.username,user_bean.email,user_bean.password,user_bean.user_id))
                 con.commit()
-                return True
+                return True, "Successfully updated user information."
         except lite.Error, e:
             return False,str(e)
         finally:
@@ -85,13 +85,54 @@ class user_dao:
                 return user_loader.load_list(self, cur)
         except lite.Error, e:
             return str(e)
-     
         finally:
             cur.close()
             con.close()
 
      
-#     # search user database
+    def query_username_exists(self, _username):
+        search_query = _username.rstrip().split(' ');
+        con = None
+        try:
+            con = self.database_connector
+            with con:
+                con.rollback()
+                cur = con.cursor()
+                for q in search_query:
+                    querybuilder =  " SELECT * FROM user WHERE username LIKE '" + q + "'" 
+                    cur.execute(querybuilder)
+                    con.commit()
+                data = cur.fetchall()
+                if len(data) > 0:
+                    return True
+                return False
+        except lite.Error, e:
+            return False,str(e)
+        finally:
+            cur.close()
+            con.close()
+            
+    def query_email_exists(self, _email):
+        search_query = _email.rstrip();
+        con = None
+        try:
+            con = self.database_connector
+            with con:
+                con.rollback()
+                cur = con.cursor()
+                cur.execute(" SELECT * FROM user WHERE email LIKE '" + search_query + "'")
+                con.commit()
+                data = cur.fetchall()
+                if len(data) > 0:
+                    return True
+                return False
+        except lite.Error, e:
+            return False, str(e)
+        finally:
+            cur.close()
+            con.close()
+                
+# search user database
 #     def queryUserDatabase(_database, _query):
 #         search_query = _query.rstrip().split(' ');
 #         con = None

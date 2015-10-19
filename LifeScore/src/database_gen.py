@@ -6,10 +6,12 @@ life_score_con = sqlite.connect('lifescore.db')
 tables_script = """
 
     DROP TABLE IF EXISTS "user";
- 
+    DROP TABLE IF EXISTS "log";
+     
     CREATE TABLE "user" (
     `userID`    INTEGER UNIQUE,
-    `name`    TEXT NOT NULL,
+    `first_name`    TEXT NOT NULL,
+    `last_name`    TEXT NOT NULL,
     `username`    TEXT NOT NULL,
     `email`    TEXT NOT NULL,
     `password`    TEXT NOT NULL,

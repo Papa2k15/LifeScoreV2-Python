@@ -22,13 +22,26 @@ def register_new_user():
     username = request.form['username']
     email = request.form['email']
     password = request.form['pass']
-    results = ""
-    if factory.get_user_dao().add_new_user(user_bean(name, email, username, hashlib.sha256(password.encode()).hexdigest())):
-        results = "Successfully register!"
-    else:
-        results = "Error with registering. Try again."
-    return render_template('home.html',message=results)
-    
+    results = factory.get_user_dao().add_new_user(user_bean(name, email, username, hashlib.sha256(password.encode()).hexdigest()))
+    return_message = results[1]
+    return_error = not results[0]
+    return render_template('home.html',message=return_message,error=return_error)
+
+@lifescore.route('/check_username', methods=['GET'])
+def check_username():
+    query = request.args.get('q')
+    results = factory.get_user_dao().query_username_exists(query) 
+    if results == True:
+        return "<div class='alert-danger'>User name '" + query + "' is already in use</div>"
+    return ""   
+
+@lifescore.route('/check_email', methods=['GET'])
+def check_email():
+    query = request.args.get('q')
+    results = factory.get_user_dao().query_email_exists(query) 
+    if results == True:
+        return "<div class='alert-danger'>Email '" + query + "' is already in use by another user</div>"
+    return ""
 
 if __name__ == '__main__':
     lifescore.run(debug=True)
