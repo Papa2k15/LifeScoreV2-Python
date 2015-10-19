@@ -3,11 +3,12 @@ from loaders.user_loader import user_loader
 
 class user_dao:
     
-    def __init__(self, database_connector):
+    def __init__(self):
         self.user_loader_obj = user_loader()
-        self.database_connector = database_connector
+        self.database_connector = lite.connect('lifescore.db')
 
     def add_new_user(self, user_bean):
+        con = None
         try:
             con = self.database_connector
             with con:
@@ -23,6 +24,7 @@ class user_dao:
                 con.close()
         
     def getUser(self, _userID):
+        con = None
         try:
             con = self.database_connector
             with con:
@@ -38,6 +40,7 @@ class user_dao:
             con.close()
     
     def remove_user(self, _userID):
+        con = None
         try:
             con = self.database_connector
             with con:
