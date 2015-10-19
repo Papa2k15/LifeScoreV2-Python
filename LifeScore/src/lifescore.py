@@ -18,11 +18,12 @@ def registration():
 
 @lifescore.route('/register_user/', methods=['POST'])
 def register_new_user():
-    name = request.form['name']
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
     username = request.form['username']
     email = request.form['email']
     password = request.form['pass']
-    results = factory.get_user_dao().add_new_user(user_bean(name, email, username, hashlib.sha256(password.encode()).hexdigest()))
+    results = factory.get_user_dao().add_new_user(user_bean(first_name, last_name, email, username, hashlib.sha256(password.encode()).hexdigest()))
     return_message = results[1]
     return_error = not results[0]
     return render_template('home.html',message=return_message,error=return_error)

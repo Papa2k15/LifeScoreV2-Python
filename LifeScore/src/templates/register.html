@@ -7,136 +7,152 @@
 	<div class="container">
 		{% block content %}
 		<script type="text/javascript">
-		 function usernamesearch(str) {
-	   	  if (str.length==0) {
-	   		    document.getElementById("usernamesearch").innerHTML="";
-			    	$('#usernamesearch').hide();
-	   		    return;
-	   		  }
-	   		  if (window.XMLHttpRequest) {
-	   		    // code for IE7+, Firefox, Chrome, Opera, Safari
-	   		    xmlhttp=new XMLHttpRequest();
-	   		  } else {  // code for IE6, IE5
-	   		    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-	   		  }
-	   		  xmlhttp.onreadystatechange=function() {
-	   		    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-	   		    	if (xmlhttp.responseText.length > 0){
-		   		      $('#usernamesearch').show();
-		   		      document.getElementById("usernamesearch").innerHTML=xmlhttp.responseText;
-		   		      $("input[type='text']#username").removeClass("has-success valid");
-		   		   	  $("div#username").addClass("has-error");
-	   		    	} else {
-	  	   		      $('#usernamesearch').hide();
-	   		    	}
-	   		    }
-	   		  }
-	   		  xmlhttp.open("GET","/check_username?q="+str,true);
-	   		  xmlhttp.send();
-	   		}
-		 	function emailsearch(str) {
-		   	  if (str.length==0) {
-		   		    document.getElementById("emailsearch").innerHTML="";
-				    	$('#emailsearch').hide();
-		   		    return;
-		   		  }
-		   		  if (window.XMLHttpRequest) {
-		   		    // code for IE7+, Firefox, Chrome, Opera, Safari
-		   		    xmlhttp=new XMLHttpRequest();
-		   		  } else {  // code for IE6, IE5
-		   		    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		   		  }
-		   		  xmlhttp.onreadystatechange=function() {
-		   		    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-		   		    	if (xmlhttp.responseText.length > 0){
-			   		      $('#emailsearch').show();
-			   		      document.getElementById("emailsearch").innerHTML=xmlhttp.responseText;
-			   		      $("input[type='text']#email").removeClass("has-success valid");
-			   		   	  $("div#email").addClass("has-error");
-		   		    	} else {
-		  	   		      $('#emailsearch').hide();
-		   		    	}
-		   		    }
-		   		  }
-		   		  xmlhttp.open("GET","/check_email?q="+str,true);
-		   		  xmlhttp.send();
-		   		}
+			function usernamesearch(str) {
+				if (str.length == 0) {
+					document.getElementById("usernamesearch").innerHTML = "";
+					$('#usernamesearch').hide();
+					return;
+				}
+				if (window.XMLHttpRequest) {
+					// code for IE7+, Firefox, Chrome, Opera, Safari
+					xmlhttp = new XMLHttpRequest();
+				} else { // code for IE6, IE5
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						if (xmlhttp.responseText.length > 0) {
+							$('#usernamesearch').show();
+							document.getElementById("usernamesearch").innerHTML = xmlhttp.responseText;
+							$("input[type='text']#username").removeClass(
+									"has-success valid");
+							$("div#username").addClass("has-error");
+						} else {
+							$('#usernamesearch').hide();
+						}
+					}
+				}
+				xmlhttp.open("GET", "/check_username?q=" + str, true);
+				xmlhttp.send();
+			}
+			function emailsearch(str) {
+				if (str.length == 0) {
+					document.getElementById("emailsearch").innerHTML = "";
+					$('#emailsearch').hide();
+					return;
+				}
+				if (window.XMLHttpRequest) {
+					// code for IE7+, Firefox, Chrome, Opera, Safari
+					xmlhttp = new XMLHttpRequest();
+				} else { // code for IE6, IE5
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						if (xmlhttp.responseText.length > 0) {
+							$('#emailsearch').show();
+							document.getElementById("emailsearch").innerHTML = xmlhttp.responseText;
+							$("input[type='text']#email").removeClass(
+									"has-success valid");
+							$("div#email").addClass("has-error");
+						} else {
+							$('#emailsearch').hide();
+						}
+					}
+				}
+				xmlhttp.open("GET", "/check_email?q=" + str, true);
+				xmlhttp.send();
+			}
 		</script>
 		<h2>Register</h2>
 		<div class="col-xs-12">
 			<form action="/register_user/" method="post" autocomplete="off">
 				<div class="row">
 					<div class="form-group col-xs-4">
-						<label for="name">Name:</label> <input name="name" 
-						 data-validation="length alphanumeric" data-validation-length="min1"
-						 data-validation-error-msg="Name is required" data-validation-allowing="' "
-							type="text" placeholder="Name" class="form-control" />
+						<label for="first_name">First Name:</label> <input
+							name="first_name" data-validation="length alphanumeric"
+							data-validation-length="min1"
+							data-validation-error-msg="First name is required"
+							data-validation-allowing="' " type="text" placeholder="First"
+							class="form-control" />
 					</div>
-					<div id="email" class="form-group col-xs-4">
-						<label for="email">Email:</label> <input name="email"
-						onkeyup="emailsearch(this.value)" onblur="emailsearch(this.value)" 
-						data-validation="email" data-validation-error-msg="Invalid email address"
-							type="email" placeholder="Email" class="form-control" 
-							autocomplete="off"/>
+					<div class="form-group col-xs-4">
+						<label for="first_name">First Name:</label> <input
+							name="first_name" data-validation="length alphanumeric"
+							data-validation-length="min1"
+							data-validation-error-msg="First name is required"
+							data-validation-allowing="' " type="text" placeholder="First"
+							class="form-control" />
 					</div>
-					<div id="emailsearch"></div>
 				</div>
 				<div class="row">
+					<div id="email" class="form-group col-xs-4">
+						<label for="email">Email:</label> <input name="email"
+							onkeyup="emailsearch(this.value)"
+							onblur="emailsearch(this.value)" data-validation="email"
+							data-validation-error-msg="Invalid email address" type="email"
+							placeholder="Email" class="form-control" autocomplete="off" />
+					</div>
+					<div id="emailsearch"></div>
 					<div id="username" class="form-group col-xs-8">
 						<label for="username">Username:</label> <input name="username"
-						onkeyup="usernamesearch(this.value)" onblur="usernamesearch(this.value)"
-						data-validation="length alphanumeric" data-validation-length="5-50"
-						 data-validation-error-msg="Username must be between 5-50 characters" data-validation-allowing="' "
-							type="text" placeholder="Username" class="form-control" />
+							onkeyup="usernamesearch(this.value)"
+							onblur="usernamesearch(this.value)"
+							data-validation="length alphanumeric"
+							data-validation-length="5-50"
+							data-validation-error-msg="Username must be between 5-50 characters"
+							data-validation-allowing="' " type="text" placeholder="Username"
+							class="form-control" />
 						<div id="usernamesearch"></div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-xs-4">
-						<label for="pass_confirmation">Password:</label> <input name="pass_confirmation"
-							data-validation="length strength" data-validation-length="min8"
-							 data-validation-error-msg="Password needs to be at least 8 characters"
-							 data-validation-strength="2"
-							type="password" placeholder="Password" class="form-control" />
+						<label for="pass_confirmation">Password:</label> <input
+							name="pass_confirmation" data-validation="length strength"
+							data-validation-length="min8"
+							data-validation-error-msg="Password needs to be at least 8 characters"
+							data-validation-strength="2" type="password"
+							placeholder="Password" class="form-control" />
 					</div>
 					<div class="form-group col-xs-4">
 						<label for="pass">Confirm Password:</label> <input name="pass"
-						data-validation="confirmation length" data-validation-length="min8"
-						data-validation-error-msg="Passwords don't match"
-							type="password" placeholder="Confirm Password" class="form-control"/>
+							data-validation="confirmation length"
+							data-validation-length="min8"
+							data-validation-error-msg="Passwords don't match" type="password"
+							placeholder="Confirm Password" class="form-control" />
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-xs-6">
-						<input name="register" type="submit" class="btn btn-default" value="Create New Account" />
+						<input name="register" type="submit" class="btn btn-default"
+							value="Create New Account" />
 					</div>
 				</div>
 			</form>
 		</div>
 		{% endblock %}
 	</div>
-	{% block footscript %}
- 		{{ super() }} 
- 		<script type="text/javascript">
-			$.validate({
-				  scrollToTopOnError : false, // Set this property to true if you have a long form
-				  modules : 'security',
-				  onModulesLoaded : function() {
-					    var optionalConfig = {
-					      fontSize: '8pt',
-					      padding: '0px',
-					      bad : 'Very Weak',
-					      weak : 'Weak',
-					      good : 'Good',
-					      strong : 'Strong'
-					    };
+	{% block footscript %} {{ super() }}
+	<script type="text/javascript">
+		$.validate({
+			scrollToTopOnError : false, // Set this property to true if you have a long form
+			modules : 'security',
+			onModulesLoaded : function() {
+				var optionalConfig = {
+					fontSize : '8pt',
+					padding : '0px',
+					bad : 'Very Weak',
+					weak : 'Weak',
+					good : 'Good',
+					strong : 'Strong'
+				};
 
-			    	$('input[name="pass_confirmation"]').displayPasswordStrength(optionalConfig);
-				  }
-			});
-			
-			  
-		</script>
- 	{% endblock %}
+				$('input[name="pass_confirmation"]').displayPasswordStrength(
+						optionalConfig);
+			}
+		});
+	</script>
+	{% endblock %}
 </body>
 </html>
