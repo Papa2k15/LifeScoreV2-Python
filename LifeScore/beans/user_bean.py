@@ -9,7 +9,7 @@ class user_bean(object):
     classdocs
     '''
 
-    def __init__(self, user_id="*", name, email, username, password):
+    def __init__(self, user_id, name, email, username, password):
         '''
         Constructor
         '''
