@@ -22,7 +22,7 @@ def register_new_user():
     last_name = request.form['last_name']
     username = request.form['username']
     email = request.form['email']
-    password = request.form['pass']
+    password = request.form['password']
     results = factory.get_user_dao().add_new_user(user_bean(first_name, last_name, email, username, hashlib.sha256(password.encode()).hexdigest()))
     return_message = results[1]
     return_error = not results[0]

@@ -1,158 +1,92 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
 <html>
-<head>{% block head %} {{ super() }} {% endblock %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="../static/css/register.css">
 </head>
-<body>
-	{% block nav %} {{ super() }} {% endblock %}
-	<div class="container">
-		{% block content %}
-		<script type="text/javascript">
-			function usernamesearch(str) {
-				if (str.length == 0) {
-					document.getElementById("usernamesearch").innerHTML = "";
-					$('#usernamesearch').hide();
-					return;
-				}
-				if (window.XMLHttpRequest) {
-					// code for IE7+, Firefox, Chrome, Opera, Safari
-					xmlhttp = new XMLHttpRequest();
-				} else { // code for IE6, IE5
-					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-				}
-				xmlhttp.onreadystatechange = function() {
-					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-						if (xmlhttp.responseText.length > 0) {
-							$('#usernamesearch').show();
-							document.getElementById("usernamesearch").innerHTML = xmlhttp.responseText;
-							$("input[type='text']#username").removeClass(
-									"has-success valid");
-							$("div#username").addClass("has-error");
-						} else {
-							$('#usernamesearch').hide();
-						}
-					}
-				}
-				xmlhttp.open("GET", "/check_username?q=" + str, true);
-				xmlhttp.send();
-			}
-			function emailsearch(str) {
-				if (str.length == 0) {
-					document.getElementById("emailsearch").innerHTML = "";
-					$('#emailsearch').hide();
-					return;
-				}
-				if (window.XMLHttpRequest) {
-					// code for IE7+, Firefox, Chrome, Opera, Safari
-					xmlhttp = new XMLHttpRequest();
-				} else { // code for IE6, IE5
-					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-				}
-				xmlhttp.onreadystatechange = function() {
-					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-						if (xmlhttp.responseText.length > 0) {
-							$('#emailsearch').show();
-							document.getElementById("emailsearch").innerHTML = xmlhttp.responseText;
-							$("input[type='text']#email").removeClass(
-									"has-success valid");
-							$("div#email").addClass("has-error");
-						} else {
-							$('#emailsearch').hide();
-						}
-					}
-				}
-				xmlhttp.open("GET", "/check_email?q=" + str, true);
-				xmlhttp.send();
-			}
-		</script>
-		<h2>Register</h2>
-		<div class="col-xs-12">
-			<form action="/register_user/" method="post" autocomplete="off">
-				<div class="row">
-					<div class="form-group col-xs-4">
-						<label for="first_name">First Name:</label> <input
-							name="first_name" data-validation="length alphanumeric"
-							data-validation-length="min1"
-							data-validation-error-msg="First name is required"
-							data-validation-allowing="' " type="text" placeholder="First"
-							class="form-control" />
-					</div>
-					<div class="form-group col-xs-4">
-						<label for="first_name">First Name:</label> <input
-							name="first_name" data-validation="length alphanumeric"
-							data-validation-length="min1"
-							data-validation-error-msg="First name is required"
-							data-validation-allowing="' " type="text" placeholder="First"
-							class="form-control" />
-					</div>
-				</div>
-				<div class="row">
-					<div id="email" class="form-group col-xs-4">
-						<label for="email">Email:</label> <input name="email"
-							onkeyup="emailsearch(this.value)"
-							onblur="emailsearch(this.value)" data-validation="email"
-							data-validation-error-msg="Invalid email address" type="email"
-							placeholder="Email" class="form-control" autocomplete="off" />
-					</div>
-					<div id="emailsearch"></div>
-					<div id="username" class="form-group col-xs-8">
-						<label for="username">Username:</label> <input name="username"
-							onkeyup="usernamesearch(this.value)"
-							onblur="usernamesearch(this.value)"
-							data-validation="length alphanumeric"
-							data-validation-length="5-50"
-							data-validation-error-msg="Username must be between 5-50 characters"
-							data-validation-allowing="' " type="text" placeholder="Username"
-							class="form-control" />
-						<div id="usernamesearch"></div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group col-xs-4">
-						<label for="pass_confirmation">Password:</label> <input
-							name="pass_confirmation" data-validation="length strength"
-							data-validation-length="min8"
-							data-validation-error-msg="Password needs to be at least 8 characters"
-							data-validation-strength="2" type="password"
-							placeholder="Password" class="form-control" />
-					</div>
-					<div class="form-group col-xs-4">
-						<label for="pass">Confirm Password:</label> <input name="pass"
-							data-validation="confirmation length"
-							data-validation-length="min8"
-							data-validation-error-msg="Passwords don't match" type="password"
-							placeholder="Confirm Password" class="form-control" />
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group col-xs-6">
-						<input name="register" type="submit" class="btn btn-default"
-							value="Create New Account" />
-					</div>
-				</div>
-			</form>
-		</div>
-		{% endblock %}
-	</div>
-	{% block footscript %} {{ super() }}
-	<script type="text/javascript">
-		$.validate({
-			scrollToTopOnError : false, // Set this property to true if you have a long form
-			modules : 'security',
-			onModulesLoaded : function() {
-				var optionalConfig = {
-					fontSize : '8pt',
-					padding : '0px',
-					bad : 'Very Weak',
-					weak : 'Weak',
-					good : 'Good',
-					strong : 'Strong'
-				};
 
-				$('input[name="pass_confirmation"]').displayPasswordStrength(
-						optionalConfig);
-			}
-		});
-	</script>
-	{% endblock %}
+<body>
+    <nav class="navbar navbar-default custom-header">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button><a class="navbar-brand navbar-link" href="#">LifeScore </a></div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <button class="btn btn-default navbar-btn navbar-right" type="button">Return to Login</button>
+            </div>
+        </div>
+    </nav>
+    <div class="row life-form">
+        <div class="col-md-12">
+            <h1>Registration </h1></div>
+        <div class="col-md-12">
+            <form action="/register_user/" method="post">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">Name: </label>
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" name="first_name" required="" placeholder="First" autocomplete="off">
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" name="last_name" required="" placeholder="Last" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">Email: </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control" type="email" name="email" required="" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">Username: </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" name="username" required="" autocomplete="on">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">Password: </label>
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control" type="password" name="password" required="" placeholder="Password" autocomplete="off">
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control" type="password" name="confirm_password" required="" placeholder="Confirm" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-default form-control" type="submit">Register </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
 </body>
+
 </html>
