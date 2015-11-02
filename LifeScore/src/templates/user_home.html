@@ -29,12 +29,14 @@
     </div>
     <div class="container-fluid">
         <div class="col-md-4 hidden-xs hidden-sm"><img class="img-responsive profile-picture" src="../static/img/default.jpg">
-            <div class="well bio-section"><a href="#" id="user-bio" data-type="textarea" data-pk="{{uid}}" data-url="/update/" data-title="Enter new bio...">Loreno dmdsmfk smdlkfm sldkml ksd;mflkgsmdf;l gmsd;lfm g;sldfkmg ;lsdkfmg;lskdmf g;lskmdfg ;lskdmf g;lksmdf lg;msdf lgkmsdfk gmf gf g</a></div>
+            <div class="well bio-section"><a href="#" id="user-bio" data-type="textarea" data-pk="{{uid}}" data-url="/update/" data-title="Enter new bio...">{{userinfo.bio}}</a></div>
         </div>
     </div>
     <script type="text/javascript">
     $(document).ready(function() {
-        $('#user-bio').editable();
+        $('#user-bio').editable({
+        	mode: "inline"		
+        });
     });
     </script>
 </body>

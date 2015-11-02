@@ -25,6 +25,7 @@ def register_new_user():
     email = request.form['email']
     password = request.form['password']
     results = factory.get_user_dao().add_new_user(user_bean(first_name, last_name, email, username, hashlib.sha256(password.encode()).hexdigest()))
+    factory.get_user_info_dao.add_new_user_info(user_info_bean(""))
     return_message = results[1]
     return_error = not results[0]
     return render_template('index.html',message=return_message,error=return_error)
@@ -34,8 +35,9 @@ def login():
     username = request.form['username']
     password = request.form['password']
     user = factory.get_user_dao().get_registered_user(username,hashlib.sha256(password.encode()).hexdigest())
+    user_info = factory.get_user_info_dao().get_user_info(str(user.user_id[0]))
     if user != None:
-        return render_template('user_home.html',username=username,uid = user.user_id)
+        return render_template('user_home.html',username=username,uid = user.user_id, userinfo = user_info )
     return render_template('index.html',message="Invalid credentials, try again",error=True)
 
 @lifescore.route('/logout')
@@ -45,10 +47,8 @@ def logout():
 #inline user info update methods
 @lifescore.route('/update/', methods=["POST"])
 def update_user_info():
-    print request.form
-    updated_info = user_info_bean(request.form['value'],request.form['pk'])
-    factory.get_user_info_dao().update_user_info(updated_info)
-    return None;
+    factory.get_user_info_dao().update_user_info(user_info_bean(request.form['value'],str(request.form['pk'])))
+    return "Updated";
 
 #Registration Helper Methods
 @lifescore.route('/check_username', methods=['GET'])

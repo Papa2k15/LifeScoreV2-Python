@@ -18,11 +18,11 @@ tables_script = """
     PRIMARY KEY(userID)
     );
     
-    CREATE TABLE "userinfo" {
+    CREATE TABLE "userinfo" (
     'userID' INTEGER UNIQUE,
     'bio' TEXT,
     PRIMARY KEY(userID)
-    }
+    );
 
     CREATE TABLE `log` (
         `transactionID`    INTEGER UNIQUE,

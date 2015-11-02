@@ -64,7 +64,7 @@ class user_info_dao:
                 cur = con.cursor()
                 cur.execute(
                     "UPDATE userinfo SET bio = ? WHERE userID = ?",
-                    (user_info_bean.bio,user_info_bean.user_id))
+                    (user_info_bean.bio,user_info_bean.user_id.replace("(", "").replace(",","").replace(")","").replace("'","")))
                 con.commit()
                 return True
         except lite.Error, e:
