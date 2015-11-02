@@ -1,16 +1,17 @@
-from flask import Flask
+from flask import Flask, redirect
 from flask.templating import render_template
 import hashlib
 from flask.globals import request
 from dao.dao_factory import dao_factory
 from beans.user_bean import user_bean
+from beans.user_info_bean import user_info_bean
 
 lifescore = Flask(__name__)
 factory = dao_factory.get_instance()
 
 @lifescore.route('/')
-def home_page():
-    return render_template('home.html')
+def login_page():
+    return render_template('index.html')
 
 @lifescore.route('/register')
 def registration():
@@ -26,8 +27,30 @@ def register_new_user():
     results = factory.get_user_dao().add_new_user(user_bean(first_name, last_name, email, username, hashlib.sha256(password.encode()).hexdigest()))
     return_message = results[1]
     return_error = not results[0]
-    return render_template('home.html',message=return_message,error=return_error)
+    return render_template('index.html',message=return_message,error=return_error)
 
+@lifescore.route('/login/',methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+    user = factory.get_user_dao().get_registered_user(username,hashlib.sha256(password.encode()).hexdigest())
+    if user != None:
+        return render_template('user_home.html',username=username,uid = user.user_id)
+    return render_template('index.html',message="Invalid credentials, try again",error=True)
+
+@lifescore.route('/logout')
+def logout():
+    return redirect('/')
+
+#inline user info update methods
+@lifescore.route('/update/', methods=["POST"])
+def update_user_info():
+    print request.form
+    updated_info = user_info_bean(request.form['value'],request.form['pk'])
+    factory.get_user_info_dao().update_user_info(updated_info)
+    return None;
+
+#Registration Helper Methods
 @lifescore.route('/check_username', methods=['GET'])
 def check_username():
     query = request.args.get('q')

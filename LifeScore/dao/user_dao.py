@@ -16,14 +16,14 @@ class user_dao:
                 cur.execute("INSERT INTO user (first_name, last_name, username, email, password) VALUES(?, ?, ?, ?, ?)",
                             (user_bean.first_name, user_bean.last_name,user_bean.username,user_bean.email,user_bean.password))
                 con.commit()
-                return True, "Successfully registered new user."
+                return True, "Successfully registered! You may now log in " + user_bean.username
         except lite.Error, e:
             return False, str(e)
         finally:
             if con:
                 con.close()
         
-    def getUser(self, _userID):
+    def get_user(self, _userID):
         con = None
         try:
             con = self.database_connector
@@ -31,6 +31,22 @@ class user_dao:
                 con.rollback()
                 cur = con.cursor()
                 cur.execute("SELECT * FROM user WHERE userID = ?", (_userID,))
+                con.commit()
+                return self.user_loader_obj.load_single(cur)
+        except lite.Error, e:
+            return False,str(e)
+        finally:
+            cur.close()
+            con.close()
+    
+    def get_registered_user(self, _username, _password):
+        con = None
+        try:
+            con = self.database_connector
+            with con:
+                con.rollback()
+                cur = con.cursor()
+                cur.execute("SELECT * FROM user WHERE username = ? AND password = ?", (_username,_password))
                 con.commit()
                 return self.user_loader_obj.load_single(cur)
         except lite.Error, e:

@@ -1,0 +1,142 @@
+label.control-label{
+  font-size:15px;
+  float:inherit;
+  font-family:'Montserrat';
+}
+
+div.row.life-form{
+  margin-left:30%;
+  margin-right:30%;
+  border-bottom:2px solid grey;
+}
+
+input.form-control{
+  font-size:15px;
+  height:inherit;
+}
+
+input.form-control{
+  font-family:'Montserrat';
+}
+
+button.btn.btn-default.form-control{
+  font-family:'Montserrat';
+  height:inherit;
+  font-size:15px;
+}
+
+h1{
+  border-bottom:2px solid grey;
+}
+
+div.row{
+  margin:0px;
+}
+
+.custom-header a.navbar-brand.navbar-link{
+  color:#fff;
+  font:normal 28px Montserrat, Ubuntu, Arial, Helvetica, sans-serif;
+  line-height:0.5;
+  margin-right:40px;
+  background:black;
+}
+
+.custom-header{
+  background:black;
+  padding:10px 20px;
+  box-sizing:border-box;
+  border-bottom:3px solid grey;
+  border-radius:0;
+}
+
+.custom-header a.navbar-brand.navbar-link{
+  color:#fff;
+  font:normal 28px Montserrat, Ubuntu, Arial, Helvetica, sans-serif;
+  line-height:0.5;
+  margin-right:40px;
+  background:black;
+}
+
+ul.vertical-nav-list{
+  list-style-type:none;
+  padding-left:10px;
+  margin-left:0;
+  font-family:'Montserrat';
+}
+
+.active-link{
+  color:white;
+}
+
+div.vertical-nav{
+  position:absolute;
+  display:block;
+  background-color:black;
+  margin-right:90%;
+  height:100vh;
+}
+
+h2{
+  margin-top:0px;
+  padding-top:10px;
+  padding-left:20px;
+  background:grey;
+}
+
+span.active-link{
+  width:0;
+  height:0;
+  float:right;
+  border-top:10px solid transparent;
+  border-right:20px solid white;
+  border-bottom:10px solid transparent;
+}
+
+li.vnav-li{
+  padding-top:10px;
+  margin-top:10px;
+  margin-bottom:10px;
+  padding-bottom:10px;
+  border-top:1px solid grey;
+  border-bottom:1px solid grey;
+}
+
+a.vnav-link{
+  color:grey;
+  font-size:12px;
+}
+
+a.active-link.vnav-link{
+  color:white;
+}
+
+h4{
+  color:white;
+  padding-left:10px;
+}
+
+div.container-fluid{
+  margin-left:10%;
+  display:block;
+}
+
+img.profile-picture{
+  border:2px solid black;
+  max-height:200px;
+  max-width:200px;
+  margin-top:10px;
+  margin-left:15%;
+}
+
+div.well.bio-section{
+  float:inherit;
+  margin-top:10px;
+}
+
+
+
+div.alert {
+	margin-left: 30%;
+	margin-right: 30%;
+}
+

@@ -17,6 +17,12 @@ tables_script = """
     `password`    TEXT NOT NULL,
     PRIMARY KEY(userID)
     );
+    
+    CREATE TABLE "userinfo" {
+    'userID' INTEGER UNIQUE,
+    'bio' TEXT,
+    PRIMARY KEY(userID)
+    }
 
     CREATE TABLE `log` (
         `transactionID`    INTEGER UNIQUE,

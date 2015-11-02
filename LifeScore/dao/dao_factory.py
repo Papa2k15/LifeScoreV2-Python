@@ -1,4 +1,5 @@
 from dao.user_dao import user_dao
+from dao.user_info_dao import user_info_dao
 
 class dao_factory(object):
     instance = None
@@ -15,3 +16,6 @@ class dao_factory(object):
     
     def get_user_dao(self):
         return user_dao()
+
+    def get_user_info_dao(self):
+        return user_info_dao()

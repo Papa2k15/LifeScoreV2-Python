@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{username}} Home</title>
+	<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Montserrat">
+	<link rel="stylesheet" href="../static/css/theme.css">
+	<link href="../static/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+	
+	<script src="../static/js/jquery.min.js"></script>
+	<script src="../static/bootstrap/js/bootstrap.min.js"></script>
+	
+	<script src="../static/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
+</head>
+
+<body>
+    <div class="hidden-xs hidden-sm vertical-nav">
+        <h4>Welcome, {{username}}</h4>
+        <ul class="vertical-nav-list">
+            <li class="vnav-li"><a href="#" class="active-link vnav-link"><span class="glyphicon glyphicon-home"></span> Home </a><span class="active-link traingle-left"> </span></li>
+            <li class="vnav-li"><a href="#" class="vnav-link"><span class="glyphicon glyphicon-tasks"></span> Mission Control</a></li>
+            <li class="vnav-li"><a href="#" class="vnav-link"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+            <li class="vnav-li"><a href="/logout" class="vnav-link"><span class="glyphicon glyphicon-eject"></span> Logout</a></li>
+        </ul>
+    </div>
+    <div class="container-fluid">
+        <div class="col-md-4 hidden-xs hidden-sm"><img class="img-responsive profile-picture" src="../static/img/default.jpg">
+            <div class="well bio-section"><a href="#" id="user-bio" data-type="textarea" data-pk="{{uid}}" data-url="/update/" data-title="Enter new bio...">Loreno dmdsmfk smdlkfm sldkml ksd;mflkgsmdf;l gmsd;lfm g;sldfkmg ;lsdkfmg;lskdmf g;lskmdfg ;lskdmf g;lksmdf lg;msdf lgkmsdfk gmf gf g</a></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#user-bio').editable();
+    });
+    </script>
+</body>
+
+</html>
