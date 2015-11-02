@@ -16,11 +16,11 @@ class user_bean(object):
         if not user_id:
             self.user_id = None
         else:
-            self.user_id = user_id
-        self.first_name = first_name
-        self.last_name = last_name
-        self.email = email
-        self.username = username
-        self.password= password
+            self.user_id = int(user_id[0])
+        self.first_name = str(first_name)
+        self.last_name = str(last_name)
+        self.email = str(email)
+        self.username = str(username)
+        self.password= str(password)
         
         

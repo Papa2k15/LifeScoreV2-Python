@@ -131,12 +131,15 @@ img.profile-picture{
 div.well.bio-section{
   float:inherit;
   margin-top:10px;
+  min-width: 100% ;
+  min-height: 150%;
 }
-
-
 
 div.alert {
 	margin-left: 30%;
 	margin-right: 30%;
 }
 
+textarea {
+	resize: none;
+}

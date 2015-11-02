@@ -16,6 +16,7 @@ class user_loader(object):
     
     def load_single(self, cursor):
         single_user_data = cursor.fetchone()
+        #print single_user_data[0]
         if single_user_data != None:
             return user_bean(single_user_data[1],single_user_data[2], single_user_data[3], single_user_data[4], single_user_data[5],single_user_data[0])
         return single_user_data

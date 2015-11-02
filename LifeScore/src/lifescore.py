@@ -35,7 +35,7 @@ def login():
     username = request.form['username']
     password = request.form['password']
     user = factory.get_user_dao().get_registered_user(username,hashlib.sha256(password.encode()).hexdigest())
-    user_info = factory.get_user_info_dao().get_user_info(str(user.user_id[0]))
+    user_info = factory.get_user_info_dao().get_user_info(user.user_id)
     if user != None:
         return render_template('user_home.html',username=username,uid = user.user_id, userinfo = user_info )
     return render_template('index.html',message="Invalid credentials, try again",error=True)
