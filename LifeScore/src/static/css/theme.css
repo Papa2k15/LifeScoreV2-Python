@@ -59,7 +59,7 @@ div.row{
 
 ul.vertical-nav-list{
   list-style-type:none;
-  padding-left:10px;
+  padding-left:0px;
   margin-left:0;
   font-family:'Montserrat';
 }
@@ -71,7 +71,7 @@ ul.vertical-nav-list{
 div.vertical-nav{
   position:absolute;
   display:block;
-  background-color:black;
+  background-color:#2a2a2a;
   margin-right:90%;
   height:100vh;
 }
@@ -103,6 +103,7 @@ li.vnav-li{
 
 a.vnav-link{
   color:grey;
+  padding-left: 10px;
   font-size:12px;
 }
 
@@ -122,8 +123,7 @@ div.container-fluid{
 
 img.profile-picture{
   border:2px solid black;
-  max-height:200px;
-  max-width:200px;
+  max-width:100%;
   margin-top:10px;
   margin-left:15%;
 }
@@ -132,7 +132,7 @@ div.well.bio-section{
   float:inherit;
   margin-top:10px;
   min-width: 100% ;
-  min-height: 150%;
+  max-width: 100%;
 }
 
 div.alert {
@@ -140,6 +140,30 @@ div.alert {
 	margin-right: 30%;
 }
 
-textarea {
-	resize: none;
+div.well.bio-section{
+  float:inherit;
+  margin-top:10px;
+  min-width:100%;
+  min-height:150px;
+}
+
+div#carousel-1.carousel.slide{
+  margin-top:50px;
+}
+
+a.vnav-link:HOVER{
+  color: white;
+}
+
+li.vnav-li:HOVER{
+  background-color:black;
+}
+
+div.social-links{
+  margin-left:auto;
+}
+
+img.social-link{
+  max-width:100%;
+  padding-top:10px;
 }

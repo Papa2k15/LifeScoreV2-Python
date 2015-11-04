@@ -6,22 +6,29 @@ Created on Oct 18, 2015
 import unittest
 import sqlite3 as lite
 from beans.user_bean import user_bean
-
+from dao.dao_factory import dao_factory
 
 life_score_test_database = 'lifescore_test.db'
 con = None
 
 class user_dao_tests(unittest.TestCase):
-
-    example_user_1 = user_bean("2", "Gregory", "gldaniel@ncsu.edu", "Papa2k15", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8")
+    
+    global factory 
+    global example_user_1
 
     def setUp(self):
+        global factory 
+        global example_user_1
+        factory = dao_factory.get_instance(life_score_test_database)
+        example_user_1 = user_bean("Gregory","Daniels","gldaniel@ncsu.edu", "Papa2k15", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8")
         try:
             con = lite.connect(life_score_test_database)
             with con:
                 cur = con.cursor()
-                cur.execute(
+                cur.executescript(
                     """
+                    DROP TABLE IF EXISTS "user";
+
                     CREATE TABLE "user" (
                     `userID`    INTEGER UNIQUE,
                     `name`    TEXT NOT NULL,
@@ -50,9 +57,10 @@ class user_dao_tests(unittest.TestCase):
 
 
     def test_add_new_user(self):
-        user_da
-
+        global factory
+        global example_user_1
+        print factory.get_user_dao().get_all_users()
+        #self.assertEquals(len(factory.get_user_dao().get_all_users()), 0)
 
 if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.test_add_new_user']
     unittest.main()

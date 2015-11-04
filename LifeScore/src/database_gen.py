@@ -6,14 +6,15 @@ life_score_con = sqlite.connect('lifescore.db')
 tables_script = """
 
     DROP TABLE IF EXISTS "user";
+    DROP TABLE IF EXISTS "userinfo";
     DROP TABLE IF EXISTS "log";
      
     CREATE TABLE "user" (
     `userID`    INTEGER UNIQUE,
     `first_name`    TEXT NOT NULL,
     `last_name`    TEXT NOT NULL,
-    `username`    TEXT NOT NULL,
     `email`    TEXT NOT NULL,
+    `username`    TEXT NOT NULL,
     `password`    TEXT NOT NULL,
     PRIMARY KEY(userID)
     );
@@ -21,6 +22,9 @@ tables_script = """
     CREATE TABLE "userinfo" (
     'userID' INTEGER UNIQUE,
     'bio' TEXT,
+    'dateofbirth' TEXT,
+    'gender' TEXT,
+    'favcolor' TEXT,
     PRIMARY KEY(userID)
     );
 

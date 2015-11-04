@@ -1,11 +1,10 @@
 import sqlite3 as lite
-from loaders.user_info_loader import user_info_loader
+from beans.user_info_bean import user_info_bean
 
 class user_info_dao:
     
     def __init__(self):
-        self.user_info_loader_obj = user_info_loader()
-        self.database_connector = lite.connect('lifescore.db')
+        self.database_connector = lite.connect("lifescore.db")
 
     def add_new_user_info(self, user_info_bean):
         con = None
@@ -13,8 +12,8 @@ class user_info_dao:
             con = self.database_connector
             with con:
                 cur = con.cursor()
-                cur.execute("INSERT INTO userinfo (bio) VALUES(?)",
-                            (user_info_bean.bio))
+                cur.execute("INSERT INTO userinfo (bio, dateofbirth, gender, favcolor) VALUES(?)",
+                            (user_info_bean.bio, user_info_bean.dateofbirth, user_info_bean.gender, user_info_bean.favcolor))
                 con.commit()
                 return True
         except lite.Error, e:
@@ -32,7 +31,10 @@ class user_info_dao:
                 cur = con.cursor()
                 cur.execute("SELECT * FROM userinfo WHERE userID = ?", (_userID,))
                 con.commit()
-                return self.user_info_loader_obj.load_single(cur)
+                single_user_info_data = cur.fetchone()
+                if single_user_info_data != None:
+                    return user_info_bean(single_user_info_data[1],single_user_info_data[2],single_user_info_data[3],single_user_info_data[4],single_user_info_data[0])
+                return single_user_info_data
         except lite.Error, e:
             return False,str(e)
         finally:
@@ -63,8 +65,8 @@ class user_info_dao:
                 con.rollback()
                 cur = con.cursor()
                 cur.execute(
-                    "UPDATE userinfo SET bio = ? WHERE userID = ?",
-                    (user_info_bean.bio,user_info_bean.user_id))
+                    "UPDATE userinfo SET bio = ?, dateofbirth = ?, gender = ?, favcolor = ? WHERE userID = ?",
+                    (user_info_bean.bio,user_info_bean.dateofbirth, user_info_bean.gender, user_info_bean.favcolor, user_info_bean.user_id))
                 con.commit()
                 return True
         except lite.Error, e:

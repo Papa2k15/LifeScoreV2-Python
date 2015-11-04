@@ -1,11 +1,10 @@
 import sqlite3 as lite
-from loaders.user_loader import user_loader
+from beans.user_bean import user_bean
 
 class user_dao:
     
     def __init__(self):
-        self.user_loader_obj = user_loader()
-        self.database_connector = lite.connect('lifescore.db')
+        self.database_connector = lite.connect("lifescore.db")
 
     def add_new_user(self, user_bean):
         con = None
@@ -13,8 +12,8 @@ class user_dao:
             con = self.database_connector
             with con:
                 cur = con.cursor()
-                cur.execute("INSERT INTO user (first_name, last_name, username, email, password) VALUES(?, ?, ?, ?, ?)",
-                            (user_bean.first_name, user_bean.last_name,user_bean.username,user_bean.email,user_bean.password))
+                cur.execute("INSERT INTO user (first_name, last_name, email, username , password) VALUES(?, ?, ?, ?, ?)",
+                            (user_bean.first_name, user_bean.last_name, user_bean.email, user_bean.username,user_bean.password))
                 con.commit()
                 return True, "Successfully registered! You may now log in " + user_bean.username
         except lite.Error, e:
@@ -32,7 +31,10 @@ class user_dao:
                 cur = con.cursor()
                 cur.execute("SELECT * FROM user WHERE userID = ?", (_userID,))
                 con.commit()
-                return self.user_loader_obj.load_single(cur)
+                single_user_data = cur.fetchone()
+                if single_user_data != None:
+                    return user_bean(single_user_data[1],single_user_data[2], single_user_data[3], single_user_data[4], single_user_data[5],single_user_data[0])
+                return single_user_data
         except lite.Error, e:
             return False,str(e)
         finally:
@@ -48,7 +50,10 @@ class user_dao:
                 cur = con.cursor()
                 cur.execute("SELECT * FROM user WHERE username = ? AND password = ?", (_username,_password))
                 con.commit()
-                return self.user_loader_obj.load_single(cur)
+                single_user_data = cur.fetchone()
+                if single_user_data != None:
+                    return user_bean(single_user_data[1],single_user_data[2], single_user_data[3], single_user_data[4], single_user_data[5],single_user_data[0])
+                return single_user_data
         except lite.Error, e:
             return False,str(e)
         finally:
@@ -98,7 +103,11 @@ class user_dao:
                 cur = con.cursor()
                 cur.execute("SELECT * FROM user")
                 con.commit()
-                return user_loader.load_list(self, cur)
+                multiple_user_data = cur.fetchall()
+                user_list = []
+                for user in multiple_user_data:
+                    user_list.append(user_bean(user[1], user[2], user[3], user[4],user[5],user[0]))
+                return user_list
         except lite.Error, e:
             return str(e)
         finally:

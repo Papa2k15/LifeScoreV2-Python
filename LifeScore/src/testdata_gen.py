@@ -4,12 +4,14 @@ life_score_con = sqlite.connect('lifescore.db')
 
 clear_tables_script =  """
                 DELETE FROM user;
+                DELETE FROM userinfo;
+                DELETE FROM log;
                 """
 
 test_data_script = """ 
     /* Test data for users*/
-        INSERT INTO `user` (userID,first_name,last_name,username,email,password) VALUES (1,'Gregory','Daniels','Papa2k15','gldaniel@ncsu.edu','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8');        
-        INSERT INTO `userinfo` (userID,bio) VALUES (1,'LETS GO WHAT WHAT!!!!');        
+        INSERT INTO `user` (first_name,last_name,username,email,password) VALUES ('Gregory','Daniels','Papa2k15','gldaniel@ncsu.edu','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8');        
+        INSERT INTO `userinfo` (bio,dateofbirth,gender,favcolor) VALUES ('LETS GO WHAT WHAT!!!!',"06/15/1993",'male','red');        
     """
     
 try:
