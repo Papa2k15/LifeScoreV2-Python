@@ -19,53 +19,100 @@
 
 <body>
      <div class="hidden-xs hidden-sm vertical-nav">
-        <h4>Welcome, {{username}}</h4>
+        <h4>Welcome, {{uid|get_reg_username}}</h4>
         <ul class="vertical-nav-list">
-            <li class="vnav-li"><a href="#" class="active-link vnav-link"><span class="glyphicon glyphicon-home"></span> Home </a><span class="active-link traingle-left"> </span></li>
+            <li class="vnav-li"><a href="/home" class="vnav-link"><span class="glyphicon glyphicon-home"></span> Home </a></li>
             <li class="vnav-li"><a href="#" class="vnav-link"><span class="glyphicon glyphicon-tasks"></span> Mission Control</a></li>
             <li class="vnav-li"><a href="#" class="vnav-link"><span class="glyphicon glyphicon-list-alt"></span> Mission Tracker</a></li>
             <li class="vnav-li"><a href="#" class="vnav-link"><span class="glyphicon glyphicon-gift"></span> Awards</a></li>
             <li class="vnav-li"><a href="#" class="vnav-link"><span class="glyphicon glyphicon-piggy-bank"></span> Store</a></li>
             <li class="vnav-li"><a href="#" class="vnav-link"><span class="glyphicon glyphicon-expand"></span> Play</a></li>
-            <li class="vnav-li"><a href="#" class="vnav-link"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+            <li class="vnav-li"><a href="/settings" class="active-link vnav-link"><span class="glyphicon glyphicon-cog"></span> Settings</a><span class="active-link traingle-left"> </span></li>
             <li class="vnav-li"><a href="/logout" class="vnav-link"><span class="glyphicon glyphicon-eject"></span> Logout</a></li>
         </ul>
     </div>
-    <div class="container-fluid">
-        <div class="col-md-4 hidden-xs hidden-sm">
-            <div class="row">
-                <div class="col-md-6"><img class="img-responsive profile-picture" src="../static/img/default.jpg"></div>
-                <div class="col-md-6 social-links">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a href="#"><img class="img-responsive social-link" src="../static/img/gplus.png"></a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="#"><img src="../static/img/facebook.png" class="social-link"></a>
+  	<div class="custom-container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Player Info</h3></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12 setting-column"><span>Username: </span><span>{{uid|get_reg_username}} </span></div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a href="#"><img src="../static/img/pinterest.png" class="social-link"></a>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12 setting-column"><span>Date Joined: </span><span>M/D/YYYY </span></div>
                         </div>
-                        <div class="col-md-6">
-                            <a href="#"><img src="../static/img/twitter.png" class="social-link"></a>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12 setting-column"><span>Tenure: </span><span>* YEARS</span></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <hr/>
-            <div class="well bio-section"><a href="#" id="user-bio" data-type="textarea" data-pk="{{uid}}" data-url="/updatebio/" data-title="Enter new bio...">{{userinfo.bio}}</a></div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Personal Info</h3></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12 setting-column"><span>Date Of Birth: </span>
+
+							<a href="#" id="dob" data-type="combodate" data-value="{{userinfo.dateofbirth}}" data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY" data-template="D/MMM/YYYY" data-pk="1" data-title="Select Date of birth">{{userinfo.dateofbirth}}</a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12 setting-column"><span>Gender: </span><a href="#" id="sex" data-type="select" data-pk="{{uid}}" data-value="{{userinfo.gender}}" data-url="/updategender/" data-title="Select gender">{{userinfo.gender}}</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Customize </h3></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12 setting-column"><span>Favorite Color: </span><a href="#">Link</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="vertical-bar"></div>
     <script type="text/javascript">
     $(document).ready(function() {
-        $('#user-bio').editable({
-        	mode: "inline",
-        	tpl: '<textarea maxlength="250"></textarea>'
-        });
-        
-        $("textarea").attr('wrap','hard');
+    	 $('#sex').editable({
+   	        prepend: "None Selected",
+   	        source: [
+   	            {value: 'male', text: 'Male'},
+   	            {value: 'female', text: 'Female'}
+   	        ],
+   	        display: function(value, sourceData) {
+   	             var colors = {"": "gray", 1: "green", 2: "blue"},
+   	                 elem = $.grep(sourceData, function(o){return o.value == value;});
+   	                 
+   	             if(elem.length) {    
+   	                 $(this).text(elem[0].text).css("color", colors[value]); 
+   	             } else {
+   	                 $(this).empty(); 
+   	             }
+   	        }   
+   	    });  
+    	 
+    	$('#dob').editable();
     });
     </script>
 </body>

@@ -45,15 +45,14 @@ def login():
 @lifescore.route('/home')
 def user_home(): 
     if session.get('logged_user_id'):
-        user = factory.get_user_dao().get_user(session.get('logged_user_id'))
         user_info = factory.get_user_info_dao().get_user_info(session.get('logged_user_id'))
-        return render_template('user_home.html',username=user.username,uid = session.get('logged_user_id'), userinfo = user_info )
+        return render_template('user_home.html',uid = session.get('logged_user_id'), userinfo = user_info )
     return redirect("/")
 
 @lifescore.route('/settings')
 def user_settings():
     if session.get('logged_user_id'):
-        return render_template('user_settings.html')
+        return render_template('user_settings.html',uid = session.get('logged_user_id'), userinfo = factory.get_user_info_dao().get_user_info(session.get('logged_user_id')))
     return redirect("/")
 
 @lifescore.route('/logout')
@@ -64,9 +63,23 @@ def logout():
 
 #inline user info update methods
 @lifescore.route('/updatebio/', methods=["POST"])
-def update_user_info():
+def update_user_bio():
     current = factory.get_user_info_dao().get_user_info(str(request.form['pk']))
     current.bio = request.form['value']
+    factory.get_user_info_dao().update_user_info(current)
+    return "Updated";
+
+@lifescore.route('/updategender/', methods=["POST"])
+def update_user_gender():
+    current = factory.get_user_info_dao().get_user_info(str(request.form['pk']))
+    current.gender = request.form['value']
+    factory.get_user_info_dao().update_user_info(current)
+    return "Updated";
+
+@lifescore.route('/updatedob/', methods=["POST"])
+def update_user_dob():
+    current = factory.get_user_info_dao().get_user_info(str(request.form['pk']))
+    current.dateofbirth = request.form['value']
     factory.get_user_info_dao().update_user_info(current)
     return "Updated";
 
@@ -86,6 +99,12 @@ def check_email():
     if results == True:
         return "<div class='alert-danger'>Email '" + query + "' is already in use by another user</div>"
     return ""
+
+#html helper functions
+def get_reg_username(user_id):
+    return factory.get_user_dao().get_user(str(user_id)).username
+
+lifescore.jinja_env.filters['get_reg_username'] = get_reg_username
 
 if __name__ == '__main__':
     lifescore.run(debug=True)

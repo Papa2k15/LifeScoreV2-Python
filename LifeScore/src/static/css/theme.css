@@ -74,6 +74,7 @@ div.vertical-nav{
   background-color:#2a2a2a;
   margin-right:90%;
   height:100vh;
+  z-index:1;
 }
 
 h2{
@@ -166,4 +167,42 @@ div.social-links{
 img.social-link{
   max-width:100%;
   padding-top:10px;
+}
+
+div.vertical-bar{
+  position:absolute;
+  margin-top:0px;
+  display:block;
+  min-width:5%;
+  background-color:#222222;
+  margin-left:95%;
+  height:100vh;
+  border-left:2px solid grey;
+  z-index:1;
+}
+
+div.container.hidden-xs.hidden-sm{
+  padding-left:10%;
+}
+
+div.custom-container{
+  background-color:#222222;
+  margin-left:12%;
+  position:absolute;
+  min-width:825px;
+  padding-top:20px;
+  width:80%;
+  height:100vh;
+  border-left:2px solid grey;
+  border-right:2px solid grey;
+  z-index:0;
+}
+
+div.panel.panel-default{
+  margin-left:5%;
+  margin-right:5%;
+}
+
+div.col-md-12.setting-column{
+  font-size:20px;
 }
