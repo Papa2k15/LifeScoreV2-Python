@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{{username}} Home</title>
+	<title>{{user.username}} - Settings</title>
 	<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -39,17 +39,21 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="row">
-                            <div class="col-md-12 setting-column"><span>Username: </span><span>{{uid|get_reg_username}} </span></div>
+                            <div class="col-md-12 setting-column"><span>Username: </span><span>{{user.username}} </span></div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="row">
-                            <div class="col-md-12 setting-column"><span>Date Joined: </span><span>M/D/YYYY </span></div>
+                            <div class="col-md-12 setting-column"><span>Date Joined: </span><span>{{user.datejoined}} </span></div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="row">
-                            <div class="col-md-12 setting-column"><span>Tenure: </span><span>* YEARS</span></div>
+                        {% if tenure > 1 %}
+                            <div class="col-md-12 setting-column"><span>Tenure: </span><span>{{tenure}} years</span></div>
+                        {% else %}
+                            <div class="col-md-12 setting-column"><span>Tenure: </span><span>{{tenure}} year</span></div>
+                        {% endif %}
                         </div>
                     </div>
                 </div>
@@ -64,7 +68,7 @@
                         <div class="row">
                             <div class="col-md-12 setting-column"><span>Date Of Birth: </span>
 
-							<a href="#" id="dob" data-type="combodate" data-value="{{userinfo.dateofbirth}}" data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY" data-template="D/MMM/YYYY" data-pk="1" data-title="Select Date of birth">{{userinfo.dateofbirth}}</a>
+							<a href="#" id="dob" data-type="combodate" data-value="{{userinfo.dateofbirth}}" data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY" data-template="D/MMM/YYYY" data-pk="{{uid}}" data-title="Select Date of birth">{{userinfo.dateofbirth}}</a>
 
                             </div>
                         </div>
@@ -97,19 +101,9 @@
     	 $('#sex').editable({
    	        prepend: "None Selected",
    	        source: [
-   	            {value: 'male', text: 'Male'},
-   	            {value: 'female', text: 'Female'}
-   	        ],
-   	        display: function(value, sourceData) {
-   	             var colors = {"": "gray", 1: "green", 2: "blue"},
-   	                 elem = $.grep(sourceData, function(o){return o.value == value;});
-   	                 
-   	             if(elem.length) {    
-   	                 $(this).text(elem[0].text).css("color", colors[value]); 
-   	             } else {
-   	                 $(this).empty(); 
-   	             }
-   	        }   
+   	            {value: 'Male', text: 'Male'},
+   	            {value: 'Female', text: 'Female'}
+   	        ] 
    	    });  
     	 
     	$('#dob').editable();

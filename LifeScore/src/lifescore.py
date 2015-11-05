@@ -5,6 +5,8 @@ from flask.globals import request, session
 from dao.dao_factory import dao_factory
 from beans.user_bean import user_bean
 from beans.user_info_bean import user_info_bean
+import time
+from datetime import date
 
 lifescore = Flask(__name__)
 lifescore.secret_key = 'lifescore'
@@ -25,7 +27,7 @@ def register_new_user():
     username = request.form['username']
     email = request.form['email']
     password = request.form['password']
-    results = factory.get_user_dao().add_new_user(user_bean(first_name, last_name, email, username, hashlib.sha256(password.encode()).hexdigest())) 
+    results = factory.get_user_dao().add_new_user(user_bean(first_name, last_name, time.strftime("%m/%d/%Y"), email, username, hashlib.sha256(password.encode()).hexdigest())) 
     if False not in results:
         factory.get_user_info_dao().add_new_user_info(user_info_bean("","","",""))
     return_message = results[1]
@@ -52,7 +54,11 @@ def user_home():
 @lifescore.route('/settings')
 def user_settings():
     if session.get('logged_user_id'):
-        return render_template('user_settings.html',uid = session.get('logged_user_id'), userinfo = factory.get_user_info_dao().get_user_info(session.get('logged_user_id')))
+        cuser = factory.get_user_dao().get_user(session.get('logged_user_id'))
+        return render_template('user_settings.html',uid = session.get('logged_user_id'),
+            user = cuser, 
+            userinfo = factory.get_user_info_dao().get_user_info(session.get('logged_user_id')),
+            tenure = (date.today().year - int(cuser.datejoined.split("/")[2])))
     return redirect("/")
 
 @lifescore.route('/logout')
@@ -76,6 +82,7 @@ def update_user_gender():
     factory.get_user_info_dao().update_user_info(current)
     return "Updated";
 
+#Currently not working
 @lifescore.route('/updatedob/', methods=["POST"])
 def update_user_dob():
     current = factory.get_user_info_dao().get_user_info(str(request.form['pk']))

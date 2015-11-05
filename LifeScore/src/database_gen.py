@@ -13,6 +13,7 @@ tables_script = """
     `userID`    INTEGER UNIQUE,
     `first_name`    TEXT NOT NULL,
     `last_name`    TEXT NOT NULL,
+    'datejoined'  TEXT NOT NULL,
     `email`    TEXT NOT NULL,
     `username`    TEXT NOT NULL,
     `password`    TEXT NOT NULL,

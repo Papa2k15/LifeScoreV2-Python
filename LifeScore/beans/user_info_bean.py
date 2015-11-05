@@ -1,19 +1,8 @@
-'''
-Created on Oct 18, 2015
-
-@author: Owner
-'''
 from sqlite3 import Date, datetime
 
 class user_info_bean(object):
-    '''
-    classdocs
-    '''
-
+  
     def __init__(self, bio, dateofbirth, gender, favcolor, *user_id):
-        '''
-        Constructor
-        '''
         if not user_id:
             self.user_id = None
         else:

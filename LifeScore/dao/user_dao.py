@@ -12,8 +12,8 @@ class user_dao:
             con = self.database_connector
             with con:
                 cur = con.cursor()
-                cur.execute("INSERT INTO user (first_name, last_name, email, username , password) VALUES(?, ?, ?, ?, ?)",
-                            (user_bean.first_name, user_bean.last_name, user_bean.email, user_bean.username,user_bean.password))
+                cur.execute("INSERT INTO user (first_name, last_name, datejoined, email, username , password) VALUES(?, ?, ?, ?, ?)",
+                            (user_bean.first_name, user_bean.last_name, user_bean.datejoined, user_bean.email, user_bean.username,user_bean.password))
                 con.commit()
                 return True, "Successfully registered! You may now log in " + user_bean.username
         except lite.Error, e:
@@ -33,7 +33,7 @@ class user_dao:
                 con.commit()
                 single_user_data = cur.fetchone()
                 if single_user_data != None:
-                    return user_bean(single_user_data[1],single_user_data[2], single_user_data[3], single_user_data[4], single_user_data[5],single_user_data[0])
+                    return user_bean(single_user_data[1],single_user_data[2], single_user_data[3], single_user_data[4], single_user_data[5], single_user_data[6], single_user_data[0])
                 return single_user_data
         except lite.Error, e:
             return False,str(e)
@@ -51,8 +51,9 @@ class user_dao:
                 cur.execute("SELECT * FROM user WHERE username = ? AND password = ?", (_username,_password))
                 con.commit()
                 single_user_data = cur.fetchone()
+                #print single_user_data
                 if single_user_data != None:
-                    return user_bean(single_user_data[1],single_user_data[2], single_user_data[3], single_user_data[4], single_user_data[5],single_user_data[0])
+                    return user_bean(single_user_data[1],single_user_data[2], single_user_data[3], single_user_data[4], single_user_data[5], single_user_data[6], single_user_data[0])
                 return single_user_data
         except lite.Error, e:
             return False,str(e)
@@ -84,8 +85,8 @@ class user_dao:
                 con.rollback()
                 cur = con.cursor()
                 cur.execute(
-                    "UPDATE user SET first_name = ?, last_name = ?, username = ?, email = ?, password = ? WHERE userID = ?",
-                    (user_bean.first_name, user_bean.last_name ,user_bean.username,user_bean.email,user_bean.password,user_bean.user_id))
+                    "UPDATE user SET first_name = ?, last_name = ?, datejoined = ?, username = ?, email = ?, password = ? WHERE userID = ?",
+                    (user_bean.first_name,user_bean.last_name,user_bean.datejoined,user_bean.username,user_bean.email,user_bean.password,user_bean.user_id))
                 con.commit()
                 return True, "Successfully updated user information."
         except lite.Error, e:
@@ -106,7 +107,7 @@ class user_dao:
                 multiple_user_data = cur.fetchall()
                 user_list = []
                 for user in multiple_user_data:
-                    user_list.append(user_bean(user[1], user[2], user[3], user[4],user[5],user[0]))
+                    user_list.append(user_bean(user[1],user[2],user[3],user[4],user[5],user[6],user[0]))
                 return user_list
         except lite.Error, e:
             return str(e)
