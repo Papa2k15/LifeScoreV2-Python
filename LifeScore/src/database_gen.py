@@ -7,6 +7,7 @@ tables_script = """
 
     DROP TABLE IF EXISTS "user";
     DROP TABLE IF EXISTS "userinfo";
+    DROP TABLE IF EXISTS "mission";
     DROP TABLE IF EXISTS "log";
      
     CREATE TABLE "user" (
@@ -27,6 +28,20 @@ tables_script = """
     'gender' TEXT,
     'favcolor' TEXT,
     PRIMARY KEY(userID)
+    );
+    
+    CREATE TABLE "mission" (
+    'missionID' INTEGER UNIQUE,
+    'userID' INTEGER NOT NULL,
+    'title' TEXT NOT NULL,
+    'description' TEXT,
+    'current_track' INTEGER NOT NULL,
+    'track_goal' INTEGER NOT NULL,
+    'units' TEXT NOT NULL,
+    'start' TEXT NOT NULL,
+    'end' TEXT,
+    'complete' INTEGER DEFAULT 0,
+    PRIMARY KEY(missionID)
     );
 
     CREATE TABLE `log` (

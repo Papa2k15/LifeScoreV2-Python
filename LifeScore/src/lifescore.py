@@ -7,6 +7,7 @@ from beans.user_bean import user_bean
 from beans.user_info_bean import user_info_bean
 import time
 from datetime import date
+from beans.mission_bean import mission_bean
 
 lifescore = Flask(__name__)
 lifescore.secret_key = 'lifescore'
@@ -51,6 +52,14 @@ def user_home():
         return render_template('user_home.html',uid = session.get('logged_user_id'), userinfo = user_info )
     return redirect("/")
 
+@lifescore.route('/mission_control')
+def user_mission_control(): 
+    if session.get('logged_user_id'):
+        cuser = factory.get_user_dao().get_user(session.get('logged_user_id'))
+        return render_template('user_mission_control.html', user = cuser, uid = session.get('logged_user_id'))
+    return redirect("/")
+
+
 @lifescore.route('/settings')
 def user_settings():
     if session.get('logged_user_id'):
@@ -89,6 +98,22 @@ def update_user_dob():
     current.dateofbirth = request.form['value']
     factory.get_user_info_dao().update_user_info(current)
     return "Updated";
+
+#Mission routes
+@lifescore.route('/add_user_mission/', methods=['POST'])
+def add_user_mission():
+    if session.get('logged_user_id'):
+        title = request.form['title']
+        description = request.form['description']
+        start = request.form['start']
+        goal = request.form['goal']
+        units = request.form['units']
+        current_track = 0
+        end = ''
+        complete = 0
+        new_user_mission = mission_bean(session.get('logged_user_id'), title, description, current_track, goal, units, start, end, complete)
+        return factory.get_mission_dao().add_new_user_mission(new_user_mission)        
+    return redirect('/')
 
 #Registration Helper Methods
 @lifescore.route('/check_username', methods=['GET'])
