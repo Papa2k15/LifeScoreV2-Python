@@ -100,19 +100,22 @@ def update_user_dob():
     return "Updated";
 
 #Mission routes
-@lifescore.route('/add_user_mission/', methods=['POST'])
+@lifescore.route('/add_user_mission/', methods=['GET'])
 def add_user_mission():
     if session.get('logged_user_id'):
-        title = request.form['title']
-        description = request.form['description']
-        start = request.form['start']
-        goal = request.form['goal']
-        units = request.form['units']
+        title = request.args.get('title')
+        description = request.args.get('description')
+        start = request.args.get('start')
+        goal = request.args.get('goal')
+        units = request.args.get('units')
         current_track = 0
-        end = ''
+        end = '01/01/1970'
         complete = 0
         new_user_mission = mission_bean(session.get('logged_user_id'), title, description, current_track, goal, units, start, end, complete)
-        return factory.get_mission_dao().add_new_user_mission(new_user_mission)        
+        if factory.get_mission_dao().add_new_user_mission(new_user_mission) is True:
+            return "true"
+        else:
+            return "false"
     return redirect('/')
 
 #Registration Helper Methods

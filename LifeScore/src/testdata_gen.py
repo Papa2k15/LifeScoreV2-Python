@@ -5,6 +5,7 @@ life_score_con = sqlite.connect('lifescore.db')
 clear_tables_script =  """
                 DELETE FROM user;
                 DELETE FROM userinfo;
+                DELETE FROM mission;
                 DELETE FROM log;
                 """
 

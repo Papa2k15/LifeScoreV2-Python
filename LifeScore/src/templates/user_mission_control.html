@@ -12,6 +12,7 @@
 	<link href="../static/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
 	
 	<script src="../static/js/jquery.min.js"></script>
+	<script src="../static/js/lifescore.js"></script>
 	<script src="../static/bootstrap/js/bootstrap.min.js"></script>
 	
 	<script src="../static/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
@@ -36,32 +37,39 @@
             <div class="row">
                 <div class="col-md-6">
                     <h3><img src="../static/img/Mission_Control_Icon.png" class="page_icon">Add New Mission</h3></div>
+           		<div class="col-md-6 mission-message" hidden="hidden">
+           			<div class="alert alert-success alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <strong>Success!</strong> Mission was added!
+					</div>
+           		</div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label" for="title">Title: </label>
-                        <input class="form-control" type="text" name="title" required="required">
+                        <input id="title" class="form-control" type="text" name="title" required="required">
                     </div>
                     <div class="form-group">
                         <label class="control-label">Date Started:</label>
-                        <input class="form-control" type="text" name="start" id="start" required="required" readonly="readonly">
+                        <input id="start" class="form-control" type="text" name="start" required="required" readonly="readonly">
                     </div>
                     <div class="form-group">
                         <label class="control-label">Description: </label>
-                        <textarea class="form-control" name="description"></textarea>
+                        <textarea id="description" class="form-control" name="description"></textarea>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Goal: </label>
-                        <input class="form-control" type="number" name="goal" required="required" min="0">
+                        <input id="goal" class="form-control" type="number" name="goal" required="required" min="0">
                     </div>
                     <div class="form-group">
                         <label class="control-label">Units </label>
-                        <input class="form-control" type="text" name="units" required="required">
+                        <input id="units" class="form-control" type="text" name="units" required="required">
                     </div>
-                    <button class="btn btn-default btn-block" type="submit">Add Mission</button>
+                    <button class="btn btn-default btn-block" type="button" onclick="addMission()">Add Mission</button>
+                    
                 </div>
             </div>
         </form>
@@ -94,12 +102,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                    	{% for x in missions %}
                         <tr>
-                            <td> </td>
+                            <td> {{x[]}} </td>
                             <td>Text</td>
                             <td>Text </td>
                             <td>Text </td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
