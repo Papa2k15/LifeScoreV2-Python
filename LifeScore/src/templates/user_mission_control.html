@@ -2,121 +2,156 @@
 <html>
 
 <head>
-     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{{user.username}} - Mission Control</title>
-	<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet"
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{user.username}} - Mission Control</title>
+<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Montserrat">
-	<link rel="stylesheet" href="../static/css/theme.css">
-	<link href="../static/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
-	
-	<script src="../static/js/jquery.min.js"></script>
-	<script src="../static/js/lifescore.js"></script>
-	<script src="../static/bootstrap/js/bootstrap.min.js"></script>
-	
-	<script src="../static/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
+<link rel="stylesheet" href="../static/css/theme.css">
+<link
+	href="../static/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css"
+	rel="stylesheet">
+
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/lifescore.js"></script>
+<script src="../static/bootstrap/js/bootstrap.min.js"></script>
+
+<script
+	src="../static/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
 </head>
 
 <body>
-    <div class="hidden-xs hidden-sm vertical-nav">
-        <h4>Welcome, {{uid|get_reg_username}}</h4>
-        <ul class="vertical-nav-list">
-            <li class="vnav-li"><a href="/home/" class="vnav-link"><span class="glyphicon glyphicon-home"></span> Home </a></li>
-            <li class="vnav-li"><a href="/mission_control" class="active-link vnav-link"><span class="glyphicon glyphicon-tasks"></span> Mission Control</a><span class="active-link traingle-left"> </span></li>
-            <li class="vnav-li"><a href="#" class="vnav-link"><span class="glyphicon glyphicon-list-alt"></span> Mission Tracker</a></li>
-            <li class="vnav-li"><a href="#" class="vnav-link"><span class="glyphicon glyphicon-gift"></span> Awards</a></li>
-            <li class="vnav-li"><a href="#" class="vnav-link"><span class="glyphicon glyphicon-piggy-bank"></span> Store</a></li>
-            <li class="vnav-li"><a href="#" class="vnav-link"><span class="glyphicon glyphicon-expand"></span> Play</a></li>
-            <li class="vnav-li"><a href="/settings" class="vnav-link"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-            <li class="vnav-li"><a href="/logout" class="vnav-link"><span class="glyphicon glyphicon-eject"></span> Logout</a></li>
-        </ul>
-    </div>
-    <div class="custom-container">
-        <form action="/add_mission/" method="post" class="lifescore-form">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3><img src="../static/img/Mission_Control_Icon.png" class="page_icon">Add New Mission</h3></div>
-           		<div class="col-md-6 mission-message" hidden="hidden">
-           			<div class="alert alert-success alert-dismissible" role="alert">
-					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					  <strong>Success!</strong> Mission was added!
+	<div class="hidden-xs hidden-sm vertical-nav">
+		<h4>Welcome, {{uid|get_reg_username}}</h4>
+		<ul class="vertical-nav-list">
+			<li class="vnav-li"><a href="/home" class="vnav-link"><span
+					class="glyphicon glyphicon-home"></span> Home </a></li>
+			<li class="vnav-li"><a href="/mission_control"
+				class="active-link vnav-link"><span
+					class="glyphicon glyphicon-tasks"></span> Mission Control</a><span
+				class="active-link traingle-left"> </span></li>
+			<li class="vnav-li"><a href="#" class="vnav-link"><span
+					class="glyphicon glyphicon-list-alt"></span> Mission Tracker</a></li>
+			<li class="vnav-li"><a href="#" class="vnav-link"><span
+					class="glyphicon glyphicon-gift"></span> Awards</a></li>
+			<li class="vnav-li"><a href="#" class="vnav-link"><span
+					class="glyphicon glyphicon-piggy-bank"></span> Store</a></li>
+			<li class="vnav-li"><a href="#" class="vnav-link"><span
+					class="glyphicon glyphicon-expand"></span> Play</a></li>
+			<li class="vnav-li"><a href="/settings" class="vnav-link"><span
+					class="glyphicon glyphicon-cog"></span> Settings</a></li>
+			<li class="vnav-li"><a href="/logout" class="vnav-link"><span
+					class="glyphicon glyphicon-eject"></span> Logout</a></li>
+		</ul>
+	</div>
+	<div class="custom-container">
+		<form action="/add_mission/" method="post" class="lifescore-form">
+			<div class="row">
+				<div class="col-md-6">
+					<h3>
+						<img src="../static/img/Mission_Control_Icon.png"
+							class="page_icon">Add New Mission
+					</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="control-label" for="title">Title: </label> <input
+							id="title" class="form-control" type="text" name="title"
+							required="required">
 					</div>
-           		</div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="control-label" for="title">Title: </label>
-                        <input id="title" class="form-control" type="text" name="title" required="required">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Date Started:</label>
-                        <input id="start" class="form-control" type="text" name="start" required="required" readonly="readonly">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Description: </label>
-                        <textarea id="description" class="form-control" name="description"></textarea>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="control-label">Goal: </label>
-                        <input id="goal" class="form-control" type="number" name="goal" required="required" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Units </label>
-                        <input id="units" class="form-control" type="text" name="units" required="required">
-                    </div>
-                    <button class="btn btn-default btn-block" type="button" onclick="addMission()">Add Mission</button>
-                    
-                </div>
-            </div>
-        </form>
-        <div class="missions_box">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Mission Database</h3></div>
-                <div class="col-md-6 mission-tools">
-                    <label>Search: </label>
-                    <input type="text" class="form-control">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button class="btn btn-default btn-block" type="button">Edit </button>
-                        </div>
-                        <div class="col-md-6">
-                            <button class="btn btn-default btn-block" type="button">Remove </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th> </th>
-                            <th>Title </th>
-                            <th>Date Started</th>
-                            <th>Goal </th>
-                            <th>Units </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    	{% for x in missions %}
-                        <tr>
-                            <td> {{x[]}} </td>
-                            <td>Text</td>
-                            <td>Text </td>
-                            <td>Text </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="vertical-bar"></div>
-    <script type="text/javascript">
+					<div class="form-group">
+						<label class="control-label">Date Started:</label> <input
+							id="start" class="form-control" type="text" name="start"
+							required="required" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Description: </label>
+						<textarea id="description" class="form-control" name="description"></textarea>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="control-label">Goal: </label> <input id="goal"
+							class="form-control" type="number" name="goal"
+							required="required" min="0">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Units </label> <input id="units"
+							class="form-control" type="text" name="units" required="required">
+					</div>
+					<button class="btn btn-default btn-block" type="button"
+						onclick="addMission({{uid}})" data-toggle="modal" data-target="#myModal">Add Mission</button>
+
+				</div>
+			</div>
+		</form>
+		<div class="missions_box">
+			<div class="row">
+				<div class="col-md-6">
+					<h3>Mission Database</h3>
+				</div>
+				<div class="col-md-6 mission-tools">
+					<label>Search: </label> <input type="text" class="form-control">
+					<div class="row">
+						<div class="col-md-6">
+							<button class="btn btn-default btn-block" type="button">Edit
+							</button>
+						</div>
+						<div class="col-md-6">
+							<button class="btn btn-default btn-block" type="button">Remove
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="user-mission-table">
+				<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Date Started</th>
+							<th>Goal</th>
+							<th>Units</th>
+						</tr>
+					</thead>
+					<tbody id="missions">
+						{% for mission in missions %}
+						<tr>
+							<td>{{mission.title}}</td>
+							<td>{{mission.start}}</td>
+							<td>{{mission.track_goal}}</td>
+							<td>{{mission.units}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			</div>
+		</div>
+	</div>
+	<div class="vertical-bar"></div>
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="mission-status"></h4>
+				</div>
+				<div class="modal-body">
+					<p id="mission-message"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script type="text/javascript">
     $(document).ready(function() {
 		var now = new Date();
 		var day = ("0" + now.getDate()).slice(-2);

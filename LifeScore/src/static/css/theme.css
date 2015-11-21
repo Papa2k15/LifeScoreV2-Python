@@ -245,3 +245,7 @@ div.missions_box{
   background-color:white;
   border:6px solid grey;
 }
+
+textarea {
+	resize: none;
+}

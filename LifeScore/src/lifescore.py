@@ -56,7 +56,8 @@ def user_home():
 def user_mission_control(): 
     if session.get('logged_user_id'):
         cuser = factory.get_user_dao().get_user(session.get('logged_user_id'))
-        return render_template('user_mission_control.html', user = cuser, uid = session.get('logged_user_id'))
+        missions = factory.get_mission_dao().get_all_missions_for_user(session.get('logged_user_id'))
+        return render_template('user_mission_control.html', user = cuser, uid = session.get('logged_user_id'), missions=missions)
     return redirect("/")
 
 
@@ -117,6 +118,38 @@ def add_user_mission():
         else:
             return "false"
     return redirect('/')
+
+@lifescore.route('/refresh_missions/', methods=['GET'])
+def refresh_missions():
+    user_missions = factory.get_mission_dao().get_all_missions_for_user(session.get('logged_user_id'));
+    mission_ouput = """
+                    <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Date Started</th>
+                                <th>Goal</th>
+                                <th>Units</th>
+                            </tr>
+                        </thead>
+                    <tbody id="missions">
+                    """ 
+    for x in user_missions:
+        mission_ouput += """
+        <tr> 
+            <td>""" + x.title + """</td>
+            <td>""" + x.start + """</td>
+            <td>""" + str(x.track_goal) + """</td>
+            <td>""" + str(x.units) + """</td>
+        </tr>
+        """
+    mission_ouput += """
+                    </tbody>
+                </table>
+            </div>
+                    """
+    return mission_ouput
 
 #Registration Helper Methods
 @lifescore.route('/check_username', methods=['GET'])

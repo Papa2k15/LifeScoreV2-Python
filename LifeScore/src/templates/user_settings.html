@@ -9,11 +9,13 @@
 	<link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Montserrat">
 	<link rel="stylesheet" href="../static/css/theme.css">
+	<link href="../static/js/laktek-color-picker/css/colorPicker.css" rel="stylesheet">
 	<link href="../static/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
 	
 	<script src="../static/js/jquery.min.js"></script>
 	<script src="../static/bootstrap/js/bootstrap.min.js"></script>
 	
+	<script src="../static/js/laktek-color-picker/js/jquery.colorPicker.min.js"></script>
 	<script src="../static/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
 </head>
 
@@ -88,7 +90,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="row">
-                            <div class="col-md-12 setting-column"><span>Favorite Color: </span><a href="#">Link</a></div>
+                            <div class="col-md-12 setting-column"><span>Favorite Color: </span><input id="favcolor" name="favcolor" type="text" value="#333399" onchange="updateFavColor()"/></div>
                         </div>
                     </div>
                 </div>
@@ -106,7 +108,15 @@
    	        ] 
    	    });  
     	 
-    	$('#dob').editable();
+    	//$('#dob').editable();
+    	
+    	$.fn.colorPicker.defaults.colors = ['263f8f','00b0f4','00a2c2','512d17',
+    	                                    '026e4c','008862','4ad031','c1c4c9',
+    	                                    'ff8841','6a2286','6b1d51','b12592',
+    	                                    '9a87c7','ffa2bf','fd3e9d','ef2d35',
+    	                                    'ffffff','e6fdf5','ffff00','3a3a3a'];
+    	$("input[type='text']#favcolor").colorPicker();
+    	
     });
     </script>
 </body>
