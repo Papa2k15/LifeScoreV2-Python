@@ -15,6 +15,7 @@
 	<script src="../static/js/jquery.min.js"></script>
 	<script src="../static/bootstrap/js/bootstrap.min.js"></script>
 	
+	<script src="../static/js/lifescore.js"></script>
 	<script src="../static/js/laktek-color-picker/js/jquery.colorPicker.min.js"></script>
 	<script src="../static/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
 </head>
@@ -90,7 +91,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="row">
-                            <div class="col-md-12 setting-column"><span>Favorite Color: </span><input id="favcolor" name="favcolor" type="text" value="#333399" onchange="updateFavColor()"/></div>
+                            <div class="col-md-12 setting-column"><span>Favorite Color: </span><input id="favcolor" name="favcolor" type="text" value="{{userinfo.favcolor}}" onchange="updateFavColor()"/></div>
                         </div>
                     </div>
                 </div>

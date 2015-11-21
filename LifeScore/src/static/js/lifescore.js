@@ -57,3 +57,14 @@ function addMission(id) {
 			,true);
 	xmlhttp.send();
 }
+
+function updateFavColor(){
+	if (window.XMLHttpRequest) {
+		xmlhttp=new XMLHttpRequest();
+	} else { 
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	var color = $("input[type='hidden']#favcolor").val();
+	xmlhttp.open("GET","/updatefavcolor/?color="+encodeURIComponent(color),true);
+	xmlhttp.send();
+}

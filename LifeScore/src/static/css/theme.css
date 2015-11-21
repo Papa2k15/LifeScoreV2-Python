@@ -189,13 +189,18 @@ div.custom-container{
   background-color:#222222;
   margin-left:12%;
   position:absolute;
-  font:normal 28px Montserrat, Ubuntu, Arial, Helvetica, sans-serif;
+  font:normal 20px Montserrat, Ubuntu, Arial, Helvetica, sans-serif;
   min-width:825px;
   padding-top:20px;
   width:80%;
   border-left:2px solid grey;
   border-right:2px solid grey;
   z-index:0;
+}
+
+a#user-bio {
+	font-size: 15px;
+	display: block;
 }
 
 div.panel.panel-default{

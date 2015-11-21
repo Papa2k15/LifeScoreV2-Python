@@ -31,7 +31,7 @@
             <li class="vnav-li"><a href="/logout" class="vnav-link"><span class="glyphicon glyphicon-eject"></span> Logout</a></li>
         </ul>
     </div>
-    <div class="container-fluid">
+    <div class="custom-container">
         <div class="col-md-4 hidden-xs hidden-sm">
             <div class="row">
                 <div class="col-md-6"><img class="img-responsive profile-picture" src="../static/img/default.jpg"></div>
@@ -58,6 +58,7 @@
             <div class="well bio-section"><a href="#" id="user-bio" data-type="textarea" data-pk="{{uid}}" data-url="/updatebio/" data-title="Enter new bio...">{{userinfo.bio}}</a></div>
         </div>
     </div>
+    <div class="vertical-bar"></div>
     <script type="text/javascript">
     $(document).ready(function() {
         $('#user-bio').editable({

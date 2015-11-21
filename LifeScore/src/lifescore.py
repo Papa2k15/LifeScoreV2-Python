@@ -80,15 +80,22 @@ def logout():
 #inline user info update methods
 @lifescore.route('/updatebio/', methods=["POST"])
 def update_user_bio():
-    current = factory.get_user_info_dao().get_user_info(str(request.form['pk']))
+    current = factory.get_user_info_dao().get_user_info(session.get('logged_user_id'))
     current.bio = request.form['value']
     factory.get_user_info_dao().update_user_info(current)
     return "Updated";
 
 @lifescore.route('/updategender/', methods=["POST"])
 def update_user_gender():
-    current = factory.get_user_info_dao().get_user_info(str(request.form['pk']))
+    current = factory.get_user_info_dao().get_user_info(session.get('logged_user_id'))
     current.gender = request.form['value']
+    factory.get_user_info_dao().update_user_info(current)
+    return "Updated";
+
+@lifescore.route('/updatefavcolor/', methods=["GET"])
+def update_user_favcolor():
+    current = factory.get_user_info_dao().get_user_info(session.get('logged_user_id'))
+    current.favcolor = request.args.get('color')
     factory.get_user_info_dao().update_user_info(current)
     return "Updated";
 
