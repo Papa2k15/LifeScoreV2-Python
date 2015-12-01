@@ -159,7 +159,16 @@
 		var today = (month)+"/"+(day)+"/"+now.getFullYear();
 		$('#start').val(today);
 		
+		if('{{favcolor}}'.localeCompare("#3a3a3a") != 0){
+	        $("a.vnav-link").css('color','black');
+	    	$("a.active-link").css('color','white');
+	    } else {
+	        $("a.vnav-link").css('color','grey');
+	    	$("a.active-link").css('color','white');
+	    }
 	   // document.getElementById("start").readOnly = true;
+        $("div.vertical-bar").css('background-color','{{favcolor}}');
+        $("div.vertical-nav").css('background-color','{{favcolor}}');
 
     });
     </script>

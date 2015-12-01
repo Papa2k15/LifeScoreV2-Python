@@ -49,15 +49,16 @@ def login():
 def user_home(): 
     if session.get('logged_user_id'):
         user_info = factory.get_user_info_dao().get_user_info(session.get('logged_user_id'))
-        return render_template('user_home.html',uid = session.get('logged_user_id'), userinfo = user_info )
+        return render_template('user_home.html',uid = session.get('logged_user_id'), userinfo = user_info, favcolor = user_info.favcolor)
     return redirect("/")
 
 @lifescore.route('/mission_control')
 def user_mission_control(): 
     if session.get('logged_user_id'):
         cuser = factory.get_user_dao().get_user(session.get('logged_user_id'))
+        user_info = factory.get_user_info_dao().get_user_info(session.get('logged_user_id'))
         missions = factory.get_mission_dao().get_all_missions_for_user(session.get('logged_user_id'))
-        return render_template('user_mission_control.html', user = cuser, uid = session.get('logged_user_id'), missions=missions)
+        return render_template('user_mission_control.html', user = cuser, uid = session.get('logged_user_id'), missions=missions, favcolor = user_info.favcolor)
     return redirect("/")
 
 
@@ -65,10 +66,12 @@ def user_mission_control():
 def user_settings():
     if session.get('logged_user_id'):
         cuser = factory.get_user_dao().get_user(session.get('logged_user_id'))
+        user_info = factory.get_user_info_dao().get_user_info(session.get('logged_user_id'))
         return render_template('user_settings.html',uid = session.get('logged_user_id'),
             user = cuser, 
-            userinfo = factory.get_user_info_dao().get_user_info(session.get('logged_user_id')),
-            tenure = (date.today().year - int(cuser.datejoined.split("/")[2])))
+            userinfo = user_info,
+            tenure = (date.today().year - int(cuser.datejoined.split("/")[2])),
+            favcolor = user_info.favcolor)
     return redirect("/")
 
 @lifescore.route('/logout')

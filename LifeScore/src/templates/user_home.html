@@ -67,6 +67,16 @@
         });
         
         $("textarea").attr('wrap','hard');
+        if('{{favcolor}}'.localeCompare("#3a3a3a") != 0){
+	        $("a.vnav-link").css('color','black');
+	    	$("a.active-link").css('color','white');
+	    } else {
+	        $("a.vnav-link").css('color','grey');
+	    	$("a.active-link").css('color','white');
+	    }
+        $("div.vertical-bar").css('background-color','{{favcolor}}');
+        $("div.vertical-nav").css('background-color','{{favcolor}}');
+
     });
     </script>
 </body>

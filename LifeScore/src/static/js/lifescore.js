@@ -65,6 +65,15 @@ function updateFavColor(){
 		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	var color = $("input[type='hidden']#favcolor").val();
+	if(color.localeCompare("#3a3a3a") != 0){
+        $("a.vnav-link").css('color','black');
+    	$("a.active-link").css('color','white');
+    } else {
+        $("a.vnav-link").css('color','grey');
+    	$("a.active-link").css('color','white');
+    }
+    $("div.vertical-bar").css('background-color',color);
+    $("div.vertical-nav").css('background-color',color);
 	xmlhttp.open("GET","/updatefavcolor/?color="+encodeURIComponent(color),true);
 	xmlhttp.send();
 }
